@@ -1,8 +1,16 @@
-<div>
+<div class="form" [formGroup]="form">
+  <div class="title">hot keys</div>
+  <div class="sub-title">(press ! to see the hotkeys map)</div>
   <div>
-    <input type="text" />
+    <label for="textValue" class="text-label">Type some text</label>
+    <input
+      type="text"
+      id="textValue"
+      formControlName="textValue"
+      class="input-form"
+    />
   </div>
   <div>
-    <button (click)="save()">save</button>
+    <button (click)="save()" title="{{ saveCommandTitle }}">save</button>
   </div>
 </div>

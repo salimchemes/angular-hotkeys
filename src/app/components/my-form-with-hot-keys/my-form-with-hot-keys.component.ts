@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { HotkeysService, Hotkey } from 'angular2-hotkeys';
+import { FormBuilder, FormGroup } from '@angular/forms';
+import { Hotkey, HotkeysService } from 'angular2-hotkeys';
 
 @Component({
   selector: 'app-my-form-with-hot-keys',
@@ -7,25 +8,37 @@ import { HotkeysService, Hotkey } from 'angular2-hotkeys';
   styleUrls: ['./my-form-with-hot-keys.component.scss'],
 })
 export class MyFormWithHotKeysComponent implements OnInit {
-  getDescription(): string | Function {
-    return 'desadasdasdasdasdc';
-  }
-  constructor(private hotkeysService: HotkeysService) {
-    const newKey = new Hotkey(
-      ['command+s', 'ctrl+s'],
-      (): boolean => {
-        this.save();
-        return false; // Prevent bubbling
-      },
-      ['INPUT', 'TEXTAREA', 'SELECT'],
-      this.getDescription
+  mac = 'command+s';
+  win = 'ctrl+s';
+  isMac = navigator.platform.includes('Mac');
+  saveCommand = this.isMac ? this.mac : this.win;
+  saveCommandTitle = this.isMac ? '⌘+s' : this.win;
+  form: FormGroup;
+  constructor(private hotkeysService: HotkeysService, private fb: FormBuilder) {
+    this.hotkeysService.add(
+      new Hotkey(
+        this.saveCommand,
+        (): boolean => {
+          this.save();
+          return false; // Prevent bubbling
+        },
+        ['INPUT', 'TEXTAREA', 'SELECT'],
+        'save'
+      )
     );
-    this.hotkeysService.add(newKey);
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.configForm();
+  }
 
   save() {
-    console.log('save');
+    alert(this.form.controls?.textValue?.value || 'no text');
+  }
+
+  private configForm() {
+    this.form = this.fb.group({
+      textValue: '',
+    });
   }
 }
