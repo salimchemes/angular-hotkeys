@@ -17,13 +17,14 @@ export class MyFormWithHotKeysComponent implements OnInit {
   constructor(private hotkeysService: HotkeysService, private fb: FormBuilder) {
     this.hotkeysService.add(
       new Hotkey(
-        this.saveCommand,
+        this.saveCommand, //  key combination
         (): boolean => {
+          // callback function to execute after key combination
           this.save();
-          return false; // Prevent bubbling
+          return false; // prevent bubbling
         },
-        ['INPUT', 'TEXTAREA', 'SELECT'],
-        'save'
+        ['INPUT', 'TEXTAREA', 'SELECT'], // allow shortcut execution in these html elements
+        'save' // shortcut name
       )
     );
   }

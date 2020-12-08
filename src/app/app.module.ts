@@ -8,11 +8,11 @@ import { AppComponent } from './app.component';
 import { MyFormWithHotKeysComponent } from './components/my-form-with-hot-keys/my-form-with-hot-keys.component';
 
 const options: IHotkeyOptions = {
-  disableCheatSheet: false,
-  cheatSheetHotkey: '!',
-  cheatSheetCloseEsc: true,
-  cheatSheetCloseEscDescription: 'hide hotkeys map',
-  cheatSheetDescription: 'show all hotkeys',
+  disableCheatSheet: false, // disable the cheat sheet popover dialog? Default: false
+  cheatSheetHotkey: '!', // key combination to trigger the cheat sheet. Default: '?'
+  cheatSheetCloseEsc: true, // use also ESC for closing the cheat sheet. Default: false
+  cheatSheetCloseEscDescription: 'hide hotkeys map', // description for the ESC key for closing the cheat sheet (if enabed). Default: 'Hide this help menu'
+  cheatSheetDescription: 'show all hotkeys', // description for the cheat sheet hot key in the cheat sheet. Default: 'Show / hide this help menu'
 };
 
 @NgModule({
